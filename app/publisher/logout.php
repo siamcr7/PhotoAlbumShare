@@ -1,7 +1,8 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/publisher/auth.php');
+include_once("../../non-pages/php-include/top.php");
+include_once($upFolderPlaceholder . 'app/publisher/auth.php');
 ?>
 
 <?php
 unset($_SESSION['publisher']);
-header("location:" . $_SESSION['websiteName'] . "public/login.php");
+header("location:" . $upFolderPlaceholder . "public/login.php");

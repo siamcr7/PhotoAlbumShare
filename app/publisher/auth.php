@@ -1,8 +1,8 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/headerInit.php');
+include_once("../../non-pages/php-include/top.php");
 ?>
 <?php
 if (!isset($_SESSION['publisher'])) {
     $_SESSION['msg'] = "Please Login!";
-    header("location:" . $_SESSION['websiteName'] . "public/login.php");
+    header("location:" . $upFolderPlaceholder . "public/login.php");
 }

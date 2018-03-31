@@ -1,15 +1,9 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/headerInit.php');
-
-if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
-    echo $_SESSION['msg'];
-    $_SESSION['msg'] = '';
-}
-
+include_once("../non-pages/php-include/top.php");
 ?>
 <h1>Registration For Publisher</h1>
 
-<form method="post" action="<?= $_SESSION['websiteName'] ?>helper/register.php">
+<form method="post" action="<?=$upFolderPlaceholder?>helper/register.php">
     <label for="username">User Name: </label>
     <input name="username" type="text">
     <br>

@@ -1,17 +1,14 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT']. '/PhotoAlbumShare/' . 'app/headerInit.php');
-if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
-    echo $_SESSION['msg'];
-    $_SESSION['msg'] = '';
-}
+include_once("../non-pages/php-include/top.php");
+
 if(isset($_SESSION['publisher'])){
-    header("location:" . $_SESSION['websiteName'] . "app/publisher/index.php");
+    header("location:" . $upFolderPlaceholder . "app/publisher/index.php");
     return;
 }
 ?>
 <h1>Login For Publisher</h1>
 
-<form method="post" action="<?=$_SESSION['websiteName']?>helper/login.php" >
+<form method="post" action="<?=$upFolderPlaceholder?>helper/login.php" >
     <label for="username">User Name: </label>
     <input name="username" type="text">
     <br>

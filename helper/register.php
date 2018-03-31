@@ -1,6 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/headerInit.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'db/allDBFunction.php');
+include_once("../non-pages/php-include/top.php");
 ?>
 
 <?php
@@ -35,4 +34,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-header("location:" . $_SESSION['websiteName'] . "public/register.php");
+header("location:" . $upFolderPlaceholder . "public/register.php");

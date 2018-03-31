@@ -1,14 +1,14 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/headerInit.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'db/conn.php');
+//include_once("../non-pages/php-include/top.php"); /// please check here again!
+include_once('conn.php');
 ?>
 
 <?php
+/// $_SESSION['db'] is my database for now;
 function getFullTable($tableName) /// returns full table
 {
     createCon();
     global $conn;
-
     $sql = "SELECT * FROM " . $tableName;
     $result = mysqli_query($conn, $sql);
     $ret = array();
@@ -79,7 +79,7 @@ function getArrayOfInfo($colName,$colVal,$tableName)
             $newItem = array();
             foreach($item as $key => $value)
             {
-                if($key == $colName || $key == 'id')continue;
+                if($key == $colName)continue;
                 $newItem[$key] = $value;
             }
             $retArr[$iCnt++] = $newItem;

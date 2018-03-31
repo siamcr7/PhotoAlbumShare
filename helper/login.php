@@ -1,6 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'app/headerInit.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/PhotoAlbumShare/' . 'db/allDBFunction.php');
+include_once("../non-pages/php-include/top.php");
 ?>
 
 <?php
@@ -11,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['publisher'] = getRowByID($publisherID,'users');
         $_SESSION['msg'] .= 'Successfully Logged In!';
         $_SESSION['msg'] .= '<br>';
-        header("location:" . $_SESSION['websiteName'] . "app/publisher/index.php");
+        header("location:" . $upFolderPlaceholder . "app/publisher/index.php");
         return;
     }
     else{
@@ -19,4 +18,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['msg'] .= '<br>';
     }
 }
-header("location:" . $_SESSION['websiteName'] . "public/login.php");
+header("location:" . $upFolderPlaceholder . "public/login.php");
