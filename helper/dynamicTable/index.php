@@ -32,40 +32,46 @@ function buildDynamicTable($givenArr)
 
 function viewDynamicTableInPHP()
 {
-    foreach($_SESSION["dynamicTable"] as $curItem)
-    {
-        foreach($curItem as $key => $value)
-        {
+    foreach ($_SESSION["dynamicTable"] as $curItem) {
+        foreach ($curItem as $key => $value) {
             echo "{$key} : {$value} <br>";
         }
         echo "<br>";
     }
 }
 
-
-function viewDynamicTableInHTML($withEditOption = false,$withViewOption = false)
+$_SESSION["setNextEditPage"] = "editProfilePage.php";
+$_SESSION["setNextViewPage"] = "viewAlbum.php";
+function setNextEditPage($str)
 {
-    if(true)
-    {
+    $_SESSION["setNextEditPage"] = $str;
+}
+
+function setNextViewPage($str)
+{
+    $_SESSION["setNextViewPage"] = $str;
+}
+
+function viewDynamicTableInHTML($withEditOption = false, $withViewOption = false)
+{
+    if (true) {
         ?>
-        <table style=width:100% , border = 1>
+        <table style=width:100% , border=1>
 
             <?php
             $firstRow = true;
-            foreach($_SESSION["dynamicTable"] as $curItem)
-            {
+            foreach ($_SESSION["dynamicTable"] as $curItem) {
                 ?>
 
                 <?php
-                if($firstRow)
-                {
+                if ($firstRow) {
                     ?>
                     <tr>
                         <?php
-                        foreach($curItem as $key => $value)
-                        {
+                        foreach ($curItem as $key => $value) {
+                            if ($key == 'id') continue;
                             ?>
-                            <th ><?=$key;?></th>
+                            <th><?= $key; ?></th>
                             <?php
                         }
                         ?>
@@ -76,25 +82,34 @@ function viewDynamicTableInHTML($withEditOption = false,$withViewOption = false)
                 ?>
                 <tr>
                     <?php
-                    foreach($curItem as $key => $value)
-                    {
+                    $saveId = 0;
+                    foreach ($curItem as $key => $value) {
+                        if ($key == 'id') {
+                            $saveId = $value;
+                            continue;
+                        }
+                        if ($key == 'url') {
+                            ?>
+                            <td><img src= <?= $value; ?> height = 150 width = 300 />
+                            </td>
+                            <?php
+                            continue;
+                        }
                         ?>
-                        <td ><?=$value;?></td>
+                        <td><?= $value; ?></td>
                         <?php
                     }
-                    if(!$firstRow)
-                    {
-                        if($withEditOption)
-                        {
+                    if (!$firstRow) {
+                        if ($withEditOption) {
                             ?>
 
-                            <td> <a href=<?=$_SESSION["setNextEditPage"];?>>Edit</a> </td>
+                            <td><a href=<?= $_SESSION["setNextEditPage"]; ?>>Edit</a></td>
                             <?php
                         }
-                        if($withViewOption)
-                        {
+                        if ($withViewOption) {
                             ?>
-                            <td> <a href=<?=$_SESSION["setNextViewPage"];?>>View</a> </td>
+                            <td><a href=<?= $_SESSION["setNextViewPage"] . '?albumId=' . $saveId; ?>>Album Details</a>
+                            </td>
                             <?php
                         }
                     }

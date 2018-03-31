@@ -79,7 +79,7 @@ function getArrayOfInfo($colName,$colVal,$tableName)
             $newItem = array();
             foreach($item as $key => $value)
             {
-                if($key == $colName || $key == 'id')continue;
+                if($key == $colName)continue;
                 $newItem[$key] = $value;
             }
             $retArr[$iCnt++] = $newItem;

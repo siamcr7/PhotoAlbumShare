@@ -7,9 +7,6 @@ if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
     $_SESSION['msg'] = '';
 }
 ?>
-    <p align="right">
-    <a href="<?= $_SESSION['websiteName'] . "app/publisher/logout.php" ?>">Logout!</a>
-    </p>
     <br>
     <form method="post" action="<?=$_SESSION['websiteName']?>helper/publisher/addAlbum.php" >
         <label for="ablumName">New Album Name: </label>
@@ -22,8 +19,10 @@ if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
 
 <?php
 
-buildDynamicTable(getArrayOfInfo('userId',$_SESSION['publisher']['id'],'albums'));
-viewDynamicTableInHTML();
+$arrayOfAlbums = getArrayOfInfo('userId',$_SESSION['publisher']['id'],'albums');
+buildDynamicTable($arrayOfAlbums);
+
+viewDynamicTableInHTML(false,true);
 
 
 
