@@ -1,6 +1,11 @@
 <?php
 include_once("../../non-pages/php-include/top.php");
-$_SESSION['websiteName'] = '/';
+$_SESSION['websiteName'] = '/safe-sierra-77775.herokuapp.com/';
+
+/// heroku deploy
+if($_SERVER['DOCUMENT_ROOT'] == '/app'){
+    $_SESSION['websiteName'] = '/';
+}
 ?>
 
 <?php

@@ -16,7 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insArr = array();
         $insArr['userId'] = $_SESSION['publisher']['id'];
         $insArr['albumName'] = "'".$_POST['albumName']."'";
-        $insArr['shareLink'] = "'".$_POST['albumName']."'";
+
+        $shareLink = generateRandomString(15);
+        while(getIdByInfo('shareLink', $shareLink, 'albums') != 0){
+            $shareLink = generateRandomString(15);
+        }
+
+        $insArr['shareLink'] = "'".$shareLink."'";
+        $insArr['password'] = "'".generateRandomString(10)."'";
         if (insert($insArr, 'albums')) {
             $_SESSION['msg'] .= 'Successfully Added an Album!';
             $_SESSION['msg'] .= '<br>';

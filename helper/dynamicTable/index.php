@@ -96,6 +96,11 @@ function viewDynamicTableInHTML($withEditOption = false, $withViewOption = false
                             <?php
                             continue;
                         }
+                        if($key == 'shareLink'){
+                            echo '<td>' . "https://safe-sierra-77775.herokuapp.com/public/viewAlbum.php?shareLink="
+                                . $value . '</td>';
+                            continue;
+                        }
                         ?>
                         <td><?= $value; ?></td>
                         <?php
