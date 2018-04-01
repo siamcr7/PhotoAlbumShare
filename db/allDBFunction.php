@@ -4,20 +4,51 @@ include_once('conn.php');
 ?>
 
 <?php
-/// $_SESSION['db'] is my database for now;
 function getFullTable($tableName) /// returns full table
 {
-    createCon();
-    global $conn;
-    $sql = "SELECT * FROM " . $tableName;
-    $result = mysqli_query($conn, $sql);
+//    createCon();
+//    global $conn;
+//    $sql = "SELECT * FROM " . $tableName;
+//    $result = mysqli_query($conn, $sql);
+//    $ret = array();
+//    $rowCount = 0;
+//    while (($row = mysqli_fetch_assoc($result)) != null) {
+//        $ret[$rowCount++] = $row;
+//    }
+//    closeCon();
+//    return ($ret);
+
+//    var_dump($ret);
+
+    global $upFolderPlaceholder;
+    $lines = file($upFolderPlaceholder . '/db/' . $tableName . '.txt');
+
+    $iCnt = 0;
     $ret = array();
-    $rowCount = 0;
-    while (($row = mysqli_fetch_assoc($result)) != null) {
-        $ret[$rowCount++] = $row;
+    $colName = array();
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($iCnt == 0) {
+            $colNames = explode(',', $line);
+            $colName['id'] = '';
+            foreach ($colNames as $value) {
+                $colName[$value] = '';
+            }
+        } else {
+            $colName['id'] = $iCnt;
+            $colValues = explode(',', $line);
+            $tempCnt = 0;
+            foreach ($colName as $key => $value) {
+                if ($key == 'id') continue;
+                $colName[$key] = $colValues[$tempCnt++];
+            }
+            $ret[$iCnt - 1] = $colName;
+        }
+        $iCnt++;
     }
-    closeCon();
-    return ($ret);
+//    var_dump($ret);
+//    exit;
+    return $ret;
 }
 
 /// returns the value of the colName against that id in that table
@@ -61,25 +92,21 @@ function getIdByInfo($colName, $colVal, $tableName)
     return 0;
 }
 
-function getArrayOfInfo($colName,$colVal,$tableName)
+function getArrayOfInfo($colName, $colVal, $tableName)
 {
     $ret = getFullTable($tableName);
     $retArr = array();
     $iCnt = 0;
-    foreach($ret as $item)
-    {
+    foreach ($ret as $item) {
         $idMatch = false;
-        foreach($item as $key => $value)
-        {
-            if($key == $colName && $value == $colVal)$idMatch = true;
+        foreach ($item as $key => $value) {
+            if ($key == $colName && $value == $colVal) $idMatch = true;
         }
 
-        if($idMatch)
-        {
+        if ($idMatch) {
             $newItem = array();
-            foreach($item as $key => $value)
-            {
-                if($key == $colName)continue;
+            foreach ($item as $key => $value) {
+                if ($key == $colName) continue;
                 $newItem[$key] = $value;
             }
             $retArr[$iCnt++] = $newItem;
@@ -100,16 +127,24 @@ function insert($insData, $tableName)
     var_dump($res);
     */
 
-    $columns = implode(", ", array_keys($insData));
-    $values = implode(", ", array_values($insData));
+//    $columns = implode(", ", array_keys($insData));
+//    $values = implode(", ", array_values($insData));
 
 
+//    $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
 
-    $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
+//    createCon();
+//    global $conn;
+//    $result = mysqli_query($conn, $sql);
+//    closeCon();
+//    return $result;
 
-    createCon();
-    global $conn;
-    $result = mysqli_query($conn, $sql);
-    closeCon();
-    return $result;
+
+    global $upFolderPlaceholder;
+    foreach ($insData as $key => $value) {
+        $insData[$key] = str_replace("'", "", $value);
+    }
+    $values = implode(",", array_values($insData));
+    $myFile = file_put_contents($upFolderPlaceholder . '/db/' . $tableName . '.txt', $values . PHP_EOL, FILE_APPEND | LOCK_EX);
+    return $myFile;
 }
