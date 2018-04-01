@@ -1,6 +1,6 @@
 <?php
 include_once("../../non-pages/php-include/top.php");
-$_SESSION['websiteName'] = '/safe-sierra-77775.herokuapp.com/';
+$_SESSION['websiteName'] = '/';
 ?>
 
 <?php
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $urlStr .= $imageFileType;
 
     $target_file = $urlStr;
-    $urlStr = $_SESSION['websiteName'] . 'resources/images/' . $uniqueName . '.' .$imageFileType;
+    $urlStr = 'resources/images/' . $uniqueName . '.' .$imageFileType;
 
     $uploadOk = 1;
 
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['msg'] .= '<br>';
         }
     }
-    header("location:" . $_SESSION['websiteName'] . "app/publisher/viewAlbum.php?albumId="
+    header("location:" . $upFolderPlaceholder . "app/publisher/viewAlbum.php?albumId="
         . $_REQUEST['albumId']);
     return;
 }

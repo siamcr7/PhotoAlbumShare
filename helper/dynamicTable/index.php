@@ -89,8 +89,9 @@ function viewDynamicTableInHTML($withEditOption = false, $withViewOption = false
                             continue;
                         }
                         if ($key == 'url') {
+                            global $upFolderPlaceholder;
                             ?>
-                            <td><img src= <?= $value; ?> height = 150 width = 300 />
+                            <td><img src= <?= $upFolderPlaceholder . $value; ?> height = 150 width = 300 />
                             </td>
                             <?php
                             continue;
